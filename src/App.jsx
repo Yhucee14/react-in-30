@@ -1,12 +1,14 @@
 
 import './App.css'
+import Quiz from './Quiz'
 
 function App() {
 
   return (
-    <>
-Hello world
-    </>
+  <div className='bg-gray-800 flex justify-center h-screen'>
+    <Quiz />
+
+  </div>
   )
 }
 
