@@ -1,19 +1,26 @@
 
-import { useState } from "react";
+import {useContext } from "react";
+import QuizContext from "./quiz-app/QuizContext";
 
 const Quiz = () => {
-  const [currentQuestions, setCurrentQuestions] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
+const {
+  questions,
+  score,
+  setScore,
+  showScore,
+  setShowScore,
+  currentQuestion,
+  setCurrentQuestion,
+} = useContext(QuizContext)
 
   const HandleAnswerSubmission = (isCorrect) => {
     if (isCorrect) {
       setScore(score + 1);
     }
 
-    const nextQuestion = currentQuestions + 1;
-    if (nextQuestion < Questions.length) {
-      setCurrentQuestions(nextQuestion);
+    const nextQuestion = currentQuestion + 1;
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
     } else {
       setShowScore(true);
     }
@@ -25,18 +32,18 @@ const Quiz = () => {
 
       {showScore ? (
         <div className="text-white font-bold text-lg">
-          Your score is {score}/{Questions.length}
+          Your score is {score}/{questions.length}
         </div>
       ) : (
         <div>
           <div className="text-gray-200 text-lg py-2 flex flex-row gap-2">
             <div>
-               {currentQuestions + 1}.
+               {currentQuestion + 1}.
             </div>
-            <h5 className="font-semibold text-lg">{Questions[currentQuestions].questionText}</h5>
+            <h5 className="font-semibold text-lg">{questions[currentQuestion].questionText}</h5>
           </div>
 
-          {Questions[currentQuestions].answerOptions.map(
+          {questions[currentQuestion].answerOptions.map(
             (answerOption, index) => (
               <button
                 key={index}

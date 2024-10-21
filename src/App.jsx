@@ -1,15 +1,15 @@
-
-import './App.css'
-import Quiz from './Quiz'
+import { QuizProvider } from "./quiz-app/QuizContext";
+import "./App.css";
+import Quiz from "./Quiz";
 
 function App() {
-
   return (
-  <div className='bg-gray-800 flex justify-center h-screen'>
-    <Quiz />
-
-  </div>
-  )
+    <QuizProvider>
+      <div className="bg-gray-800 flex justify-center h-screen">
+        <Quiz />
+      </div>
+    </QuizProvider>
+  );
 }
 
-export default App
+export default App;
