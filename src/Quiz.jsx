@@ -1,4 +1,4 @@
-import Questions from "./quiz-app/Questions";
+
 import { useState } from "react";
 
 const Quiz = () => {
