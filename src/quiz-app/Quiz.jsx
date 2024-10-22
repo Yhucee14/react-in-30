@@ -1,6 +1,6 @@
 
 import {useContext } from "react";
-import QuizContext from "./quiz-app/QuizContext";
+import QuizContext from "./QuizContext";
 
 const Quiz = () => {
 const {
@@ -27,7 +27,7 @@ const {
   };
 
   return (
-    <div className=" flex flex-col justify-center items-center">
+    <div className=" flex flex-col bg-gray-800 h-screen justify-center items-center">
       <div className="text-3xl py-4 text-white font-bold">Quiz App</div>
 
       {showScore ? (

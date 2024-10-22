@@ -1,13 +1,18 @@
 import { QuizProvider } from "./quiz-app/QuizContext";
 import "./App.css";
-import Quiz from "./Quiz";
+import Home from "./Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Quiz from "./quiz-app/Quiz";
 
 function App() {
   return (
     <QuizProvider>
-      <div className="bg-gray-800 flex justify-center h-screen">
-        <Quiz />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/quiz" element={<Quiz />} />
+        </Routes>
+      </BrowserRouter>
     </QuizProvider>
   );
 }
