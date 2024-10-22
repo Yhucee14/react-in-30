@@ -2,6 +2,8 @@ import { useFormContext } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 
 export const Input = ({ label, type, id, placeholder }) => {
+  const { register } = useFormContext(); //retrieve register function to register input, allowing it to handle validation
+
   return (
     <div className="flex flex-col w-full gap-2">
       <div className="flex justify-between">
@@ -11,10 +13,16 @@ export const Input = ({ label, type, id, placeholder }) => {
       </div>
 
       <input
-      id={id}
-      type={type}
-      className="w-full p-2 font-normal border rounded-md" 
-      placeholder={placeholder}
+        id={id}
+        type={type}
+        className="w-full p-2 font-normal border rounded-md"
+        placeholder={placeholder}
+        {...register(label, {
+          required: {
+            value: true,
+            message: "required",
+          },
+        })}
       />
     </div>
   );
