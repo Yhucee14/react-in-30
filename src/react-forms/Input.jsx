@@ -1,16 +1,16 @@
 import { useFormContext } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 import { MdError } from "react-icons/md";
-import { FindInputError } from "./FindInputError";
-import { IsFormInvalid } from "./IsFormInvalid";
+import { FindInputError } from "./utilities/FindInputError";
+import { IsFormInvalid } from "./utilities/IsFormInvalid";
 
-export const Input = ({ label, type, id, placeholder }) => {
+export const Input = ({ name, label, type, id, placeholder, validation,  }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext(); //retrieve register function to register input, allowing it to handle validation
 
-  const inputError = FindInputError(errors, label);
+  const inputError = FindInputError(errors, name);
   const isInvalid = IsFormInvalid(inputError);
 
   return (
@@ -35,12 +35,7 @@ export const Input = ({ label, type, id, placeholder }) => {
         type={type}
         className="w-full bg-gray-200 p-2 font-normal border rounded-md"
         placeholder={placeholder}
-        {...register(label, {
-          required: {
-            value: true,
-            message: "required",
-          },
-        })}
+        {...register(name, validation)}
       />
     </div>
   );
@@ -48,7 +43,7 @@ export const Input = ({ label, type, id, placeholder }) => {
 
 const InputError = ({ message }) => {
   return (
-    <motion.p className="flex items-center gap-2 font-semibold bg-red-100 text-red-500 rounded-md">
+    <motion.p className="flex items-center gap-2 font-semibold bg-red-100 text-red-500 rounded-md" {...framer_error}>
       <MdError />
       {message}
     </motion.p>

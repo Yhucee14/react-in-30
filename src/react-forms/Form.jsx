@@ -1,13 +1,14 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Input } from "./Input";
 import { GrMail } from "react-icons/gr";
+import { name_validation, email_validation, password_validation } from "./utilities/InputValidations";
 
 const Form = () => {
   const methods = useForm(); //setup form method from react-hook-form
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
-  });  //utilizes the method to handle form submission
+  });  //utilizes the method to handle form submission and display data in the console
 
   return (
     <FormProvider {...methods}>
@@ -15,21 +16,13 @@ const Form = () => {
         <form
           onSubmit={(e) => e.preventDefault()}
           noValidate //ensures the use of react-hook-form for validation
+          autoComplete="off"
           className="container"
         >
           <div className="bg-white rounded-md p-10 w-full text-gray-800 grid gap-2 md:grid-cols-2">
-            <Input
-              label="name"
-              type="text"
-              id="name"
-              placeholder="Type your name..."
-            />
-
-            <Input
-              label="password"
-              type="password"
-              placeholder="Type your password"
-            />
+            <Input {...name_validation} />
+            <Input {...email_validation} />
+            <Input {...password_validation} />
 
             <div className="mt-5">
               <button
