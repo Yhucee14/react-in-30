@@ -6,24 +6,43 @@ import {
   email_validation,
   password_validation,
 } from "./utilities/InputValidations";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
+import { data } from "autoprefixer";
 
 const SignupForm = () => {
   const methods = useForm(); //setup form method from react-hook-form
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  const {signup} = useContext(AuthContext);
+  const [email, SetEmail] = useState("")
+  const [password, SetPassword] = useState("")
+  const [fullName, SetFullName] = useState("")
 
-  const onSubmit = methods.handleSubmit((data) => {
+  // const onSubmit = methods.handleSubmit((data) => {
+  //   console.log(data);
+  //   setSuccess(true);
+
+   
+
+  //   setTimeout(() => {
+  //     navigate("/profile"); // Navigate to the profile page
+  //   }, 1000); // Delay to show the success message for a moment
+  // }); //utilizes the method to handle form submission, reset the form and display data in the console
+
+  const onSubmit = async (e) => {
     console.log(data);
-    methods.reset();
     setSuccess(true);
+    e.preventDefault();
+
+    await signup(email, password, fullName);
 
     setTimeout(() => {
       navigate("/profile"); // Navigate to the profile page
     }, 1000); // Delay to show the success message for a moment
-  }); //utilizes the method to handle form submission, reset the form and display data in the console
+  }
 
   return (
     <FormProvider {...methods}>
@@ -33,15 +52,14 @@ const SignupForm = () => {
         </div>
 
         <form
-          onSubmit={(e) => e.preventDefault()}
           noValidate //ensures the use of react-hook-form for validation
           autoComplete="off"
           className="container bg-white md:w-[700px] rounded-md p-10 w-full text-gray-800"
         >
           <div className="  grid gap-2 ">
-            <Input {...name_validation} />
-            <Input {...email_validation} />
-            <Input {...password_validation} />
+            <Input {...name_validation} onChange={(e) => SetFullName(e.target.value)} />
+            <Input {...email_validation} onChange={(e) => SetEmail(e.target.value)} />
+            <Input {...password_validation} onChange={(e) => SetPassword(e.target.value)} />
           </div>
           <div className="mt-8 ">
             {success && (
