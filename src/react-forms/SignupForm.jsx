@@ -20,6 +20,7 @@ const SignupForm = () => {
   const [email, SetEmail] = useState("")
   const [password, SetPassword] = useState("")
   const [fullName, SetFullName] = useState("")
+  const [error, setError] = useState(null); // State to hold error message
 
   // const onSubmit = methods.handleSubmit((data) => {
   //   console.log(data);
@@ -33,16 +34,22 @@ const SignupForm = () => {
   // }); //utilizes the method to handle form submission, reset the form and display data in the console
 
   const onSubmit = async (e) => {
-    console.log(data);
-    setSuccess(true);
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission
+    setSuccess(false); // Reset success state
+    setError(null); // Reset error state
 
-    await signup(email, password, fullName);
+    // Call signup with the collected state values
+    await signup(email, password, fullName).catch(err => {
+        setError(err.response.data.message); // Set error message
+    });
 
-    setTimeout(() => {
-      navigate("/profile"); // Navigate to the profile page
-    }, 1000); // Delay to show the success message for a moment
-  }
+    // Navigate to the profile page only if signup is successful
+    if (!error) {
+      setTimeout(() => {
+        navigate("/profile"); // Navigate to the profile page
+      }, 1000); // Delay to show the success message for a moment
+    }
+  };
 
   return (
     <FormProvider {...methods}>
@@ -68,7 +75,11 @@ const SignupForm = () => {
                 Submitted Successfully
               </p>
             )}
+            {error && (
+              <p className="text-red-500">{error}</p>
+            )}
             <button
+            type="submit"
               onClick={onSubmit}
               className="flex hover:bg-gray-200 hover:border transition-all duration-300 hover:border-gray-800 hover:text-gray-800 gap-2 items-center p-2 font-semibold text-gray-200 rounded-md bg-gray-800"
             >
