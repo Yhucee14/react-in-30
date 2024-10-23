@@ -1,36 +1,89 @@
-import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import { createContext, useState, useContext } from "react";
+import PropTypes from "prop-types";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({children}) =>  {
-    const [user, setUser] = useState(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-    const signup = async (email, password, fullName) => {
-        try {
-            const response = await axios.post(`${import.meta.env.VITE_SIGNUP}` , {
-                email,
-                password,
-                fullName,
-            })
+  const login = async (email, password) => {
+    try {
+      const response = await fetch('https://agrolux.onrender.com/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-            const { data } = response;
-            setUser(data.user);
-
-            localStorage.setItem("user", JSON.stringify(data.user));
-        } catch (error) {
-            console.error("Registration failed: ", error.response.data);
-        }
+      const data = await response.json();
+      if (response.ok) {
+        setUser(data);
+        setLoggedIn(true); // Update loggedIn state
+      } else {
+        console.error('Login failed:', data.message);
+        setLoggedIn(false); // Ensure loggedIn is false on failure
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setLoggedIn(false); // Ensure loggedIn is false on error
     }
+  };
 
-    return (
-        <AuthContext.Provider 
-        value={{
-            user,
-            signup
-        }}
-        >
-            {children}
-        </AuthContext.Provider>
-    )
-}
+  const signup = async (fullName, email, password) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SIGNUP}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fullName, email, password }),
+      });
+
+      const data = await response.json();
+      console.log("Registration response:", data);
+
+      if (response.ok) {
+        localStorage.setItem("user", JSON.stringify(data.user)); // Save user to localStorage
+        setUser(data.user);
+        setLoggedIn(true);
+        return { success: true }; // Indicate successful registration
+      } else {
+        console.error("Registration failed:", data.message);
+        return {
+          success: false,
+          message: data.message || "Registration failed",
+        }; // Return object with success and message
+      }
+    } catch (error) {
+      console.error("Error during registration:", error); // Log the full error object
+      return { success: false, message: "An unexpected error occurred." }; // Always return an object
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    setLoggedIn(false); // Update loggedIn state on logout
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        loggedIn,
+        logout,
+        signup,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired, // Updated to node for broader compatibility
+};
+
+export const useAuth = () => useContext(AuthContext);

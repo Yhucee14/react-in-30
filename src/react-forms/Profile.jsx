@@ -1,17 +1,17 @@
-import { useContext } from "react"
-import { AuthContext } from "./AuthContext"
+
+import { useAuth } from "./AuthContext";
 
 
 const Profile = () => {
-const {user} = useContext(AuthContext);
+const {user} = useAuth();
 
-if (!user) {
-  return <p>please log in</p>
-}
+// if (!user) {
+//   return <p>please log in</p>
+// }
 
   return (
     <div>
-      {user.name}
+      {user.message}
     </div>
   )
 }
