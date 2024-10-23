@@ -14,7 +14,7 @@ const Home = () => {
         </button>
       </Link>
 
-      <Link to="/form" className="py-2 ">
+      <Link to="/signup" className="py-2 ">
         <button className=" hover:shadow border hover:shadow-white text-lg rounded-xl p-2">
           Form with react-use-form
         </button>

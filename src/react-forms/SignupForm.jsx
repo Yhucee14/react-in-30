@@ -8,22 +8,28 @@ import {
 } from "./utilities/InputValidations";
 import { useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
-const Form = () => {
+const SignupForm = () => {
   const methods = useForm(); //setup form method from react-hook-form
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = methods.handleSubmit((data) => {
     console.log(data);
     methods.reset();
     setSuccess(true);
+
+    setTimeout(() => {
+      navigate("/profile"); // Navigate to the profile page
+    }, 1000); // Delay to show the success message for a moment
   }); //utilizes the method to handle form submission, reset the form and display data in the console
 
   return (
     <FormProvider {...methods}>
       <div className=" bg-gray-800 h-screen px-3 flex flex-col justify-center items-center text-gray-200">
         <div className="py-5 font-bold text-2xl">
-            Login
+           Signup
         </div>
 
         <form
@@ -58,4 +64,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SignupForm;
