@@ -5,13 +5,13 @@ import { useAuth } from "./AuthContext";
 const Profile = () => {
 const {user} = useAuth();
 
-// if (!user) {
-//   return <p>please log in</p>
-// }
+if (!user) {
+  return <p>please log in</p>
+}
 
   return (
     <div>
-      {user.message}
+      {user.fullName}
     </div>
   )
 }
