@@ -19,6 +19,12 @@ const Home = () => {
           Form with react-use-form
         </button>
       </Link>
+
+      <Link to="/chart" className="py-2 ">
+        <button className=" hover:shadow border hover:shadow-white text-lg rounded-xl p-2">
+          Charts with recharts
+        </button>
+      </Link>
     </div>
   );
 };

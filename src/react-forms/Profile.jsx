@@ -1,9 +1,9 @@
-
-import { useAuth } from "./AuthContext";
+import { useContext } from "react"
+import { AuthContext } from "./AuthContext"
 
 
 const Profile = () => {
-const {user} = useAuth();
+const {user} = useContext(AuthContext);
 
 if (!user) {
   return <p>please log in</p>
