@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { QuizProvider } from "./quiz-app/QuizContext";
 import "./App.css";
 import Home from "./Home";
@@ -10,7 +10,7 @@ import { AuthProvider } from "./react-forms/AuthContext";
 import ReactChart from "./react-chart/ReactChart";
 import OverviewPage from "./react-chart/pages/OverviewPage";
 import Product from "./react-chart/pages/Product";
-import Sidebar from './react-chart/components/Sidebar'
+import Sidebar from "./react-chart/components/Sidebar";
 
 function App() {
   return (
@@ -24,12 +24,10 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/chart" element={<ReactChart />} />
 
-            <React.Fragment>
-              <Sidebar />
-
+            <Route element={<Sidebar />}>
               <Route path="/overview" element={<OverviewPage />} />
               <Route path="/product" element={<Product />} />
-            </React.Fragment>
+            </Route>
           </Routes>
         </BrowserRouter>
       </QuizProvider>
