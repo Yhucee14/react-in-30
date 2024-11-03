@@ -1,6 +1,6 @@
 import { BarChart2, DollarSign, Icon, Menu, Settings, ShoppingBag, ShoppingCart, TrendingUp, Users } from "lucide-react";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const SIDEBAR_ITEMS = [
@@ -49,7 +49,7 @@ const SIDEBAR_ITEMS = [
 ];
 
 const Sidebar = () => {
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true); 
 
   return (
     <motion.div
@@ -75,7 +75,20 @@ const Sidebar = () => {
                 <item.Icon
                   size={20}
                   style={{ color: item.color, minWidth: "20px" }}
+
+                
                 />
+                  <AnimatePresence>
+                  {isSideBarOpen && (
+                    <motion.span
+                    className="ml-4 whitespace-nowrap"
+                    initial={{opacity: 0, width: 0}}
+                    animate={{opacity: 1, width: 'auto'}}
+                    exit={{opacity: 0, width: 0}}
+                    transition={{duration: 0.2, delay: 0.3}}
+                    >{item.name}</motion.span>
+                  )}
+                  </AnimatePresence>
               </motion.div>
             </Link>
           ))}
