@@ -1,8 +1,7 @@
-
 import { QuizProvider } from "./quiz-app/QuizContext";
 import "./App.css";
 import Home from "./Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import Quiz from "./quiz-app/Quiz";
 import SignupForm from "./react-forms/SignupForm";
 import Profile from "./react-forms/Profile";
@@ -11,6 +10,17 @@ import ReactChart from "./react-chart/ReactChart";
 import OverviewPage from "./react-chart/pages/OverviewPage";
 import Product from "./react-chart/pages/Product";
 import Sidebar from "./react-chart/components/Sidebar";
+
+function AppLayout() {
+  return (
+    <div className="flex">
+      <Sidebar />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -24,7 +34,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/chart" element={<ReactChart />} />
 
-            <Route element={<Sidebar />}>
+            {/* Wrap Sidebar in the AppLayout */}
+            <Route element={<AppLayout />}>
               <Route path="/overview" element={<OverviewPage />} />
               <Route path="/product" element={<Product />} />
             </Route>

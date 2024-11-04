@@ -1,4 +1,4 @@
-import { BarChart2, DollarSign, Icon, Menu, Settings, ShoppingBag, ShoppingCart, TrendingUp, Users } from "lucide-react";
+import { BarChart2, DollarSign, Menu, Settings, ShoppingBag, ShoppingCart, TrendingUp, Users } from "lucide-react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -8,43 +8,43 @@ const SIDEBAR_ITEMS = [
     name: "Overview",
     Icon: BarChart2,
     color: "#6366f1",
-    path: "/overview",
+    href: "/overview",
   },
   {
     name: "Products",
     Icon: ShoppingBag,
     color: "#ec4899",
-    path: "/product",
+    href: "/product",
   },
   {
     name: "Users",
     Icon: Users,
     color: "#8b5cf6",
-    path: "/users",
+    href: "/users",
   },
   {
     name: "Sales",
     Icon: DollarSign,
     color: "#10b981",
-    path: "/sales",
+    href: "/sales",
   },
   {
     name: "Orders",
     Icon: ShoppingCart,
     color: "#f59ee0b",
-    path: "/orders",
+    href: "/orders",
   },
   {
     name: "Analytics",
     Icon: TrendingUp,
     color: "#10b981",
-    path: "/analytics",
+    href: "/analytics",
   },
   {
     name: "Settings",
     Icon: Settings,
     color: "#6ee7b7",
-    path: "/settings",
+    href: "/settings",
   },
 ];
 
