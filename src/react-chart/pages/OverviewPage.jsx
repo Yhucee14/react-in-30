@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import StatCard from "../components/common/StatCard";
 import { BarChart2, ShoppingBag, Users, Zap } from "lucide-react";
 import SalesChart from "../components/overview/SalesChart";
+import CategoryChart from "../components/CategoryChart";
+import SalesChannelChart from "../components/SalesChannelChart";
 
 const OverviewPage = () => {
   return (
@@ -46,6 +48,8 @@ const OverviewPage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <SalesChart />
+        <CategoryChart />
+        <SalesChannelChart />
       </div>
     </div>
   );
