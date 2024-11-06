@@ -50,7 +50,7 @@ const SalesChannelChart = () => {
             {salesChannelData.map((entry, index) => (
                     <Cell key={`cell-$(index)`} fill={ COLORS[index % COLORS.length]} />
                 ))}
-            </Bar>
+            </Bar> 
           </BarChart>
         </ResponsiveContainer>
       </div>
